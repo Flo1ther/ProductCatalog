@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { FavoritesProvider } from './src/context/FavoritesContext';
+
+import HomeScreen from './src/screens/HomeScreen';
+import CategoriesScreen from './src/screens/CategoriesScreen';
+import ProductsScreen from './src/screens/ProductsScreen';
+import ProductDetailsScreen from './src/screens/ProductDetailsScreen';
+import FavoritesScreen from './src/screens/FavoritesScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <FavoritesProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Каталог товарів' }} />
+          <Stack.Screen name="Categories" component={CategoriesScreen} options={{ title: 'Категорії' }} />
+          <Stack.Screen name="Products" component={ProductsScreen} options={{ title: 'Список товарів' }} />
+          <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} options={{ title: 'Деталі товару' }} />
+          <Stack.Screen name="Favorites" component={FavoritesScreen} options={{ title: 'Улюблені' }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </FavoritesProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
